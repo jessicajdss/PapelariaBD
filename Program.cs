@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ExemploCRUD
 {
@@ -28,6 +29,8 @@ namespace ExemploCRUD
                 
                 switch(opcao){
                     case 1:
+                       // Console.WriteLine("Escolha o tipo de cadastro que deseja realizar");
+                        
                         Console.WriteLine("Informe uma nova Categoria para os itens da papelaria: ");
                         item_categoria = Console.ReadLine(); 
                         categ.Titulo= item_categoria;
@@ -37,17 +40,13 @@ namespace ExemploCRUD
                     case 2:
                         Console.WriteLine("Informe a Categoria que deseja consultar: ");
                         item_categoria = Console.ReadLine(); 
-                        //categ.Titulo=item_categoria;
-                        bd.ListarCategorias(item_categoria);
+                        
+                        List<Categoria> lista = bd.ListarCategorias("'%"+item_categoria+"%'");
                                            
 
-                        foreach(var item in ){ 
-                
-                            string c = item.GetType().ToString();
- 
-                                    Console.WriteLine("Categoria: "+categ.Titulo+" - "+categ.IdCategoria);
-
-                        }
+                        foreach(var item in lista){                    
+                            Console.WriteLine("\n"+item.IdCategoria+" - "+item.Titulo);
+                         }
 
                         break;   
 

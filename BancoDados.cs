@@ -182,5 +182,49 @@ namespace ExemploCRUD
             return lista;                   
         }
 
+        public bool AdicionarCliente(Cliente cliente){
+            bool rs = false;
+            try{
+                cn = new SqlConnection();
+                cn.ConnectionString = @"Data Source = .\sqlexpress;Initial Catalog=Papelaria; user id=sa;password=senai@123"; //servidor, nome banco, usuario e senha
+                cn.Open();
+                comandos=new SqlCommand();
+                comandos.Connection = cn;
+
+                comandos.CommandType = CommandType.StoredProcedure;
+                comandos.CommandText = "sp_CadCliente"; //definir o nome da procedure que será executado
+                
+                SqlParameter pnome = new SqlParameter("@nome",SqlDbType.VarChar,50);// pnome parametro que crio aqui e @nome é o do SQL
+                pnome.Value = cliente.NomeCliente; //classe cliente
+                comandos.Parameters.Add(pnome);
+
+                SqlParameter pemail = new SqlParameter("@email",SqlDbType.VarChar,100);
+                pemail.Value = cliente.Email; 
+                comandos.Parameters.Add(pemail);
+
+                SqlParameter pcpf = new SqlParameter("@cpf",SqlDbType.VarChar,20);
+                pcpf.Value = cliente.CPF; 
+                comandos.Parameters.Add(pcpf);
+
+                int r = comandos.ExecuteNonQuery();
+
+                if(r>0)
+                    rs = true;
+
+                comandos.Parameters.Clear();                   
+            }
+            catch(SqlException se){
+                throw new Exception("Erro ao tentar inserir os dados. "+se.Message);
+            }
+            catch(Exception ex){
+                throw new Exception("Erro inesperado. "+ex.Message);
+            }
+            finally{
+                cn.Close();
+            }
+
+            return rs;
+        }
+
     }
 }
