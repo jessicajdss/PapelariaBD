@@ -159,7 +159,8 @@ namespace ExemploCRUD
                 comandos.Connection = cn;
                 comandos.CommandType = CommandType.Text;
                 comandos.CommandText="select * from categorias where titulo like @vt";
-                comandos.Parameters.AddWithValue("@vt",titulo);
+                //comandos.Parameters.AddWithValue("@vt",titulo);
+                comandos.Parameters.AddWithValue("@vt", "%" + titulo+ "%");//Usando cosulta aproximada no começo e fim
                 rd = comandos.ExecuteReader();//não usa NonQuery porque ele retorna um valor numérico
 
                 while(rd.Read()){

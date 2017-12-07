@@ -16,6 +16,7 @@ namespace ExemploCRUD
         static void Main(string[] args)
         {
             int opcao = 0 ; 
+            int opcao_atividade = 0;
             string item_categoria = "";
             int id_categoria = 0;
        
@@ -24,31 +25,54 @@ namespace ExemploCRUD
 
             while (opcao != 9) {
                 Console.WriteLine("\n ===== New Paper * papelaria ====== \n");
-                Console.WriteLine("1 - Cadastro\n2 - Consulta\n3 - Atualização\n4 - Deletar\n\n9 - Sair\n");
+                Console.WriteLine("1 - Clientes\n2 - Categorias\n3 - Produtos\n4 - Estoque\n5 - Usuários\n9 - Sair\n");
                 opcao = Int16.Parse(Console.ReadLine());
                 
                 switch(opcao){
                     case 1:
-                       // Console.WriteLine("Escolha o tipo de cadastro que deseja realizar");
+                        Console.WriteLine("Escolha o tipo de atividade que deseja realizar com Clientes: ");
+                        Console.WriteLine("1 - Cadastrar\n2 - Consultar\n3 - Atualizar\n4 - Excluir\n9 - Sair\n");
                         
-                        Console.WriteLine("Informe uma nova Categoria para os itens da papelaria: ");
-                        item_categoria = Console.ReadLine(); 
-                        categ.Titulo= item_categoria;
-                        bd.Adicionar(categ);
-                        break;
+                        
+
+                        break;                        
 
                     case 2:
-                        Console.WriteLine("Informe a Categoria que deseja consultar: ");
-                        item_categoria = Console.ReadLine(); 
+                        Console.WriteLine("Escolha o tipo de atividade que deseja realizar com Categorias: ");
+                        Console.WriteLine("1 - Cadastrar\n2 - Consultar\n3 - Atualizar\n4 - Excluir\n9 - Sair\n");
                         
-                        List<Categoria> lista = bd.ListarCategorias("'%"+item_categoria+"%'");
-                                           
+                        switch (opcao_atividade){
+                            case 1:
+                                Console.WriteLine("Informe uma nova Categoria para os itens da papelaria: ");
+                                item_categoria = Console.ReadLine(); 
+                                categ.Titulo= item_categoria;
+                                bd.Adicionar(categ);
+                                break;
+                            
+                            case 2:
+                                Console.WriteLine("Informe a Categoria que deseja consultar: ");
+                                item_categoria = Console.ReadLine(); 
+                                
+                                List<Categoria> lista = bd.ListarCategorias(item_categoria);                                           
 
-                        foreach(var item in lista){                    
-                            Console.WriteLine("\n"+item.IdCategoria+" - "+item.Titulo);
-                         }
+                                foreach(var item in lista){                    
+                                    Console.WriteLine("\n"+item.IdCategoria+" - "+item.Titulo);
+                                }
+                                break;
 
-                        break;   
+                            case 3:
+  
+                                break;
+                            
+                            case 9:
+                                Console.WriteLine("Saindo do sistema.");
+                                break;
+                    
+                            default:
+                                break;  
+                        }
+
+                        break; 
 
                     case 3:
                         Console.WriteLine("Informe o Id da Categoria que deseja atualizar: ");
