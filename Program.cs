@@ -30,7 +30,7 @@ namespace ExemploCRUD
                 
                 switch(opcao){
                     case 1:
-                        Console.WriteLine("Escolha o tipo de atividade que deseja realizar com Clientes: ");
+                        Console.WriteLine("\nEscolha o tipo de atividade que deseja realizar com Clientes: ");
                         Console.WriteLine("1 - Cadastrar\n2 - Consultar\n3 - Atualizar\n4 - Excluir\n9 - Sair\n");
                         
                         
@@ -40,6 +40,7 @@ namespace ExemploCRUD
                     case 2:
                         Console.WriteLine("Escolha o tipo de atividade que deseja realizar com Categorias: ");
                         Console.WriteLine("1 - Cadastrar\n2 - Consultar\n3 - Atualizar\n4 - Excluir\n9 - Sair\n");
+                        opcao_atividade = Int16.Parse(Console.ReadLine());
                         
                         switch (opcao_atividade){
                             case 1:
@@ -61,9 +62,27 @@ namespace ExemploCRUD
                                 break;
 
                             case 3:
-  
+                                Console.WriteLine("Informe o id da Categoria que deseja atualizar: ");
+                                id_categoria = Int16.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Informe o novo titulo/nome dessa Categoria: ");
+                                item_categoria = Console.ReadLine(); 
+                                
+                                categ.IdCategoria = id_categoria;
+                                categ.Titulo= item_categoria;
+
+                                bd.Atualizar(categ);
                                 break;
-                            
+
+                            case 4:
+                                Console.WriteLine("Informe o id da Categoria que deseja excluir: ");
+                                id_categoria = Int16.Parse(Console.ReadLine());
+
+                                categ.IdCategoria = id_categoria;
+                                bd.Apagar(categ);
+                                
+                                break;
+                             
                             case 9:
                                 Console.WriteLine("Saindo do sistema.");
                                 break;
